@@ -12,8 +12,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/board
     username: uno
-    password:
-    driver-class-name: com.mysql.cj.jdbc.driver
+    password: thisisTESTpw!#%&
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     defer-datasource-initialization: true
@@ -22,7 +22,9 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
+      h2.console.enable: true
   sql.init.mode: always
+  # data.sql ? ???? ??
   data.rest:
     base-path: /api
     detection-strategy: annotated
@@ -47,6 +49,7 @@ spring:
 ---
 
 spring:
+  # ???? profiles.active??? ??
   config.activate.on-profile: heroku
   datasource:
     url: ${JAWSDB_URL}
