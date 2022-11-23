@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import java.util.Objects;
         @Index(columnList="content"),
         @Index(columnList ="createdAt"),
         @Index(columnList = "createdBy")
-},name = "aritcle_comments"
+},name = "aritcle_comment"
 )
 @Entity
 public class ArticleComment {
@@ -32,13 +33,16 @@ public class ArticleComment {
     @Setter @ManyToOne(optional = false)
     private Article article;    // 제목
     @Setter @Column(nullable = false,length = 500) private String content;     // 본문
-
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) // 타임 포매팅 쉽게 하려고 함
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdAt;    // 생성일자
+
     @CreatedBy
     @Column(nullable = false)
     private String createdBy;   // 생성자
+
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime modifiedAt;   // 수정일자
