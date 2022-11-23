@@ -21,7 +21,7 @@ import java.util.Objects;
         @Index(columnList="content"),
         @Index(columnList ="createdAt"),
         @Index(columnList = "createdBy")
-},name = "aritcle_comments"
+},name = "aritcle_comment"
 )
 @Entity
 public class ArticleComment {

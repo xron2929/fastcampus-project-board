@@ -26,7 +26,7 @@ import java.util.*;
         @Index(columnList = "hashtag"),
         @Index(columnList ="createdAt"),
         @Index(columnList = "createdBy")
-},name = "articles"
+},name = "article"
 )
 @Entity
 @EntityListeners(AuditingEntityListener.class)
