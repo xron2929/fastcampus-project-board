@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.xml.stream.events.Comment;
@@ -46,9 +47,10 @@ public class Article {
     // article에 Comment가 없어서 그런듯
     @OneToMany(mappedBy = "article")
     private final Set<ArticleComment> articleCommentsets = new LinkedHashSet<ArticleComment>();
-
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;    // 생성일자
     @CreatedBy @Column(nullable = false) private String createdBy;   // 생성자
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;   // 수정일자
     @LastModifiedBy @Column(nullable = false) private String modifiedBy;  // 수정자
 
