@@ -20,7 +20,7 @@ public class FastCampusProjectBoardApplication {
 	@Autowired ArticleCommentRepository articleCommentRepository;
 	@PostConstruct
 	void sdf() {
-		Long maxLongArticleId = 100L;
+		int maxLongArticleId = 100;
 		Random random = new Random();
 		RandomString randomString = new RandomString();
 		for(int i = 0; i < maxLongArticleId; i++) {
@@ -32,7 +32,7 @@ public class FastCampusProjectBoardApplication {
 
 		}
 		for(int i = 0; i < maxLongArticleId; i++) {
-			Long articleId = randomString.randomLength(maxLongArticleId);
+			Long articleId = randomString.randomLongLength(maxLongArticleId);
 			System.out.println("articleId = " + articleId);
 			Article findArticle = articleRepository.findById(articleId).orElseThrow();
 			String content2 = randomString.randomSizeString(20);

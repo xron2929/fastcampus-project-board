@@ -45,7 +45,7 @@ public class RandomString {
         }
     }
 
-    public Long randomLength(Long maxLength) {
+    public Long randomLongLength(int maxLength) {
         Random random = new Random();
         while(true) {
             Long length = random.nextLong(maxLength);
