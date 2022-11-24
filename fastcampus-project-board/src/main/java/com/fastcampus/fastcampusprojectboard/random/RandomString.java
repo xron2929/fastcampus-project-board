@@ -45,6 +45,16 @@ public class RandomString {
         }
     }
 
+    public Long randomLength(Long maxLength) {
+        Random random = new Random();
+        while(true) {
+            Long length = random.nextLong(maxLength);
+            if(length <= 0) continue;
+            return length;
+        }
+    }
+
+
 
     public List<String> randomSizeStrings(int randomPriority, int maxLength) {
         List<String> ranodmStrings = new ArrayList<>();

@@ -17,11 +17,10 @@ import java.util.Random;
 @SpringBootApplication
 public class FastCampusProjectBoardApplication {
 	@Autowired ArticleRepository articleRepository;
-	@Autowired
-	ArticleCommentRepository articleCommentRepository;
+	@Autowired ArticleCommentRepository articleCommentRepository;
 	@PostConstruct
 	void sdf() {
-		long maxLongArticleId = 100;
+		Long maxLongArticleId = 100L;
 		Random random = new Random();
 		RandomString randomString = new RandomString();
 		for(int i = 0; i < maxLongArticleId; i++) {
@@ -30,8 +29,12 @@ public class FastCampusProjectBoardApplication {
 			String hashtag = randomString.randomSizeString(20);
 			Article article = Article.of(title, content, hashtag);
 			articleRepository.save(article);
-			Long articleId = random.nextLong(maxLongArticleId);
-			Article findArticle = articleRepository.findById(articleId).orElse(null);
+
+		}
+		for(int i = 0; i < maxLongArticleId; i++) {
+			Long articleId = randomString.randomLength(maxLongArticleId);
+			System.out.println("articleId = " + articleId);
+			Article findArticle = articleRepository.findById(articleId).orElseThrow();
 			String content2 = randomString.randomSizeString(20);
 			ArticleComment articleComment = ArticleComment.of(findArticle,content2);
 			articleCommentRepository.save(articleComment);
