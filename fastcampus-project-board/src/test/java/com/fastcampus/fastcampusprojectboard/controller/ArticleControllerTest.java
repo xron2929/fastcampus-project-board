@@ -30,7 +30,7 @@ class ArticleControllerTest {
         //when & then
         mvc.perform(get("/articles"))
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(view().name("aritlces/detail"))
+                .andExpect(view().name("aritlces/index"))
                 .andExpect(model().attributeExists("articles"))
                 .andExpect(model().attributeExists("articleComments"));
         // model로 aritcles랑 COmments 정보가 있어야되고 기본 적으로 이동하는 상세페이지가 detail이라는 점
