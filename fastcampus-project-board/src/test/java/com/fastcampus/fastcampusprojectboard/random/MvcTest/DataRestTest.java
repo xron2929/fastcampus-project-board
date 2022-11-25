@@ -5,21 +5,28 @@ import com.fastcampus.fastcampusprojectboard.domain.ArticleComment;
 import com.fastcampus.fastcampusprojectboard.random.RandomString;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleCommentRepository;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
+import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.annotation.PostConstruct;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 // @Disabled("ignore 무시);
 // 이렇게 하면 ignore가 되기는 한데, 안할 꺼라서 주석처리
@@ -85,10 +92,26 @@ public class DataRestTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
     }
-    @DisplayName("조건 테스트 조회")
+    @DisplayName("json 테스트 조회")
+    @Test
+    void findJson() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/api/articles/1")).andReturn();
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        System.out.println("contentAsString = " + contentAsString);
+        JSONObject jsonObject = new JSONObject(contentAsString);
+        Object title = jsonObject.get("title");
+        System.out.println("title = " + (String)title);
+        // title을 보면 JsonObject로 title을 꺼낼 수 있고, 상황에 따라 원하는 처리 O
+    }
+    @DisplayName("API HAL 테스트 조회")
     @Test
     void conditionSearch() throws Exception {
-        mvc.perform("/api/articles/1").andReturn();
+        MvcResult mvcResult = mvc.perform(get("/api/articles/1")).andReturn();
+        String contentAsString = mvcResult.getResponse().getContentAsString();
+        System.out.println("contentAsString = " + contentAsString);
+        JSONObject jsonObject = new JSONObject(contentAsString);
+        Object title = jsonObject.get("title");
+        mvc.perform(get("/api/articles?title="+(String) title)).andExpect(status().isOk());
     }
 
 }
