@@ -1,7 +1,6 @@
-package com.fastcampus.random;
+package com.fastcampus.fastcampusprojectboard.random;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -45,6 +44,16 @@ public class RandomString {
             return length;
         }
     }
+
+    public Long randomLongLength(int maxLength) {
+        Random random = new Random();
+        while(true) {
+            Long length = random.nextLong(maxLength);
+            if(length <= 0) continue;
+            return length;
+        }
+    }
+
 
 
     public List<String> randomSizeStrings(int randomPriority, int maxLength) {

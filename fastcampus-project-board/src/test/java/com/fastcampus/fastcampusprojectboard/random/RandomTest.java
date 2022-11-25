@@ -1,4 +1,4 @@
-package com.fastcampus.random;
+package com.fastcampus.fastcampusprojectboard.random;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
