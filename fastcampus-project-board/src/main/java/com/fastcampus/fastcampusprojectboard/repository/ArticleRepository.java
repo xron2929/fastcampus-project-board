@@ -49,6 +49,6 @@ public interface ArticleRepository
         // 그리고 contains이거 전에 Excluding 빼면 대소문자 구분도 안되고, 중간에 머 넣는 것도 안되었는데
         // 이게 including 덕에 된거 같기도 하고 암튼 그럼
         // 만약 http://localhost:8080/api/articles?modifiedBy=x 이러면 필터링 조차도 안됨 이유는
-        // bindings.excludeUnlistedProperties(true); 여기서 제거했기 때문에 그냥 20개가 뜸 
+        // bindings.excludeUnlistedProperties(true); 여기서 제거했기 때문에 그냥 20개가 뜸
     }
 }
