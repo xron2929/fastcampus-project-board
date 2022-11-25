@@ -5,6 +5,8 @@ import com.fastcampus.fastcampusprojectboard.domain.ArticleComment;
 import com.fastcampus.fastcampusprojectboard.random.RandomString;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleCommentRepository;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
+import org.assertj.core.api.Assertions;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -108,10 +110,21 @@ public class DataRestTest {
     void conditionSearch() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/api/articles/1")).andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
-        System.out.println("contentAsString = " + contentAsString);
+
         JSONObject jsonObject = new JSONObject(contentAsString);
         Object title = jsonObject.get("title");
-        mvc.perform(get("/api/articles?title="+(String) title)).andExpect(status().isOk());
+        String findContentAsString = mvc.perform(get("/api/articles?title=" + (String) title)).andReturn().getResponse().getContentAsString();
+        System.out.println("contentAsString = " + contentAsString);
+        JSONObject jsonObject2 = new JSONObject(findContentAsString);
+        Object title1 = jsonObject2.getJSONObject("_embedded").get("articles");
+        System.out.println("title1 = " + title1);
+        JSONArray jsonArray = jsonObject2.getJSONObject("_embedded").getJSONArray("articles");
+        String title2 = jsonArray.getString(0);
+        JSONObject jsonObject3 = new JSONObject(title2);
+        Object title3 = jsonObject3.get("title");
+        System.out.println("title = " + title3);
+        Assertions.assertThat(title3).isEqualTo(title);
     }
+    // 대충 이렇게 다 가져오려면 힘들긴한데 가져는 올 수 있다는 점
 
 }

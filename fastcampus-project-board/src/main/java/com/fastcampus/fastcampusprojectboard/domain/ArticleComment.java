@@ -54,9 +54,12 @@ public class ArticleComment {
         this.article = article;
         this.content = content;
     }
+
     public static ArticleComment of(Article article,String content) {
         return new ArticleComment(article,content);
     }
+
+
 
     @Override
     public boolean equals(Object o) {
