@@ -85,5 +85,10 @@ public class DataRestTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
     }
+    @DisplayName("조건 테스트 조회")
+    @Test
+    void conditionSearch() throws Exception {
+        mvc.perform("/api/articles/1").andReturn();
+    }
 
 }
