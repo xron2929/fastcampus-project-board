@@ -16,8 +16,13 @@ import java.util.Random;
 @EnableJpaAuditing
 @SpringBootApplication
 public class FastCampusProjectBoardApplication {
-	@Autowired ArticleRepository articleRepository;
-	@Autowired ArticleCommentRepository articleCommentRepository;
+	public FastCampusProjectBoardApplication(@Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository) {
+		this.articleRepository = articleRepository;
+		this.articleCommentRepository = articleCommentRepository;
+	}
+
+	ArticleRepository articleRepository;
+	ArticleCommentRepository articleCommentRepository;
 	@PostConstruct
 	void sdf() {
 		int maxLongArticleId = 100;
