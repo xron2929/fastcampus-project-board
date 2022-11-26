@@ -49,6 +49,13 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
+  # 'org.springframework.boot:spring-boot-configuration-processor'
+  # thymeleaf3 관련 로직에 대한 설명이 전혀없는데, 이걸 추가하고 gradle 클릭해서 clean 하고
+  # build 누르면 ( clean은 Querydsl 주입 때문에 하긴해야됨 )
+  # configuration에 대해 다 알려줌
+  # build 하고 안되면 save 하고 캐시 다시 작업하게 reload 해주면 됨
+  thymeleaf3:
+    decoupled-logic: true
 ---
 
 spring:

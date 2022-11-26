@@ -8,12 +8,16 @@ import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
 import java.util.Random;
 
 @EnableJpaAuditing
+@ConfigurationPropertiesScan
+// ConfigurationProperties
+// 등록 떄문에 이거 추가함
 @SpringBootApplication
 public class FastCampusProjectBoardApplication {
 	public FastCampusProjectBoardApplication(@Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository) {
