@@ -16,6 +16,11 @@ public class ArticleController {
         map.addAttribute("articles", List.of());
         return "articles/main-index";
     }
-
+    @GetMapping("/articles/{articleId}")
+    public String article(ModelMap map,Long itemId) {
+        map.addAttribute("article",null);
+        map.addAttribute("articles", List.of());
+        return "articles/detail";
+    }
 
 }
