@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <header>
-        header 삽입부
-        <hr>
-    </header>
+    <header th:replace="header :: header"></header>
+
     <main>
         <form>
             <select id="search-type" name="search-type">
@@ -67,10 +65,7 @@ rivereload 기능이 있음 라이브리로드 설치하면 vscode 처럼 코드
             </table>
         </nav>
     </main>
-    <footer>
-        <hr>
-        footer 삽입부
-    </footer>
+    <footer th:replace="footer :: footer" ></footer>
 </body>
 </html>
 
