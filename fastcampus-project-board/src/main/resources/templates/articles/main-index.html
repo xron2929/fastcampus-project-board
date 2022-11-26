@@ -5,8 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-    <header th:replace="header :: header"></header>
+    <!-- <header th:replace="header :: header"></header>
 
+    -->
+    <header id="#header"></header>
+    <!--thymeleafconfig에서 추가한 것덕에 index.th.html이 자동으로 주입 시켜줌 거기 참조  -->
     <main>
         <form>
             <select id="search-type" name="search-type">
@@ -65,7 +68,8 @@ rivereload 기능이 있음 라이브리로드 설치하면 vscode 처럼 코드
             </table>
         </nav>
     </main>
-    <footer th:replace="footer :: footer" ></footer>
+    <!-- <footer th:replace="footer :: footer" ></footer> -->
+    <footer id="#footer"></footer>
 </body>
 </html>
 
