@@ -1,5 +1,6 @@
 package com.fastcampus.fastcampusprojectboard;
 
+import com.fastcampus.fastcampusprojectboard.config.SecurityConfig;
 import com.fastcampus.fastcampusprojectboard.domain.Article;
 import com.fastcampus.fastcampusprojectboard.domain.ArticleComment;
 import com.fastcampus.fastcampusprojectboard.random.RandomString;
@@ -8,16 +9,26 @@ import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
 import java.util.Random;
 
 @EnableJpaAuditing
+@ConfigurationPropertiesScan
+// ConfigurationProperties
+// 등록 떄문에 이거 추가함
 @SpringBootApplication
 public class FastCampusProjectBoardApplication {
-	@Autowired ArticleRepository articleRepository;
-	@Autowired ArticleCommentRepository articleCommentRepository;
+	public FastCampusProjectBoardApplication(@Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository) {
+		this.articleRepository = articleRepository;
+		this.articleCommentRepository = articleCommentRepository;
+	}
+
+	ArticleRepository articleRepository;
+	ArticleCommentRepository articleCommentRepository;
 	@PostConstruct
 	void sdf() {
 		int maxLongArticleId = 100;
