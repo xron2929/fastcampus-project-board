@@ -6,6 +6,7 @@ import com.fastcampus.fastcampusprojectboard.repository.ArticleCommentRepository
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
 import com.fastcampus.fastcampusprojectboard.random.RandomString;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 // @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 // 이거 2개랑 yml에있는 h2 base 이용해서 테스트 환경에 따라 mysql, h2 바꾸면서 할 수도 있지만,
 // 일단 mysql을 쓸거라 주석함 참고할꺼면 패캠 보셈
+@Disabled("비활성화")
 @DisplayName("JPA 연결 테스트")
 @Import(JpaConfig.class)
 @DataJpaTest
 // @Transactional @SPringBootTest
 // @Rollback 이용해서 해도 되는데, 뭐 자동롤백할꺼면 이렇게 해도 된다는 점
 public class JpaRepositoryTest {
-    @Autowired private ArticleRepository articleRepository;
-    @Autowired private ArticleCommentRepository articleCommentRepository;
+    public JpaRepositoryTest(@Autowired ArticleRepository articleRepository,@Autowired ArticleCommentRepository articleCommentRepository) {
+        this.articleRepository = articleRepository;
+        this.articleCommentRepository = articleCommentRepository;
+    }
+
+    private ArticleRepository articleRepository;
+    private ArticleCommentRepository articleCommentRepository;
 
     @BeforeEach
     void sdf() {
