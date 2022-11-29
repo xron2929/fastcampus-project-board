@@ -11,7 +11,6 @@ import org.springframework.security.web.SecurityFilterChain;
 // 예전에는  extends SecurityFilterChain 상속받고 authroizeRequests였지만
 // 지금은 authorizeHttpRequests로 처리하고,
 @Configuration
-
 public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

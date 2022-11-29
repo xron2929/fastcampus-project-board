@@ -18,8 +18,7 @@ import java.util.Objects;
 @Table(indexes = {
         @Index(columnList = "userId"),
         @Index(columnList = "email",unique = true),
-        @Index(columnList = "userId"),
-        @Index(columnList = "userId")
+        @Index(columnList = "createdAt")
 })
 @Entity
 public class UserAccount {
@@ -27,7 +26,7 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Setter
-    @Column(nullable = false,length = 50) private String userId;
+    @Column(nullable = false,length = 50,name = "userId") private String userId;
     @Column(nullable = false) private String userPassword;
 
     @Column(length = 100) private String email;
