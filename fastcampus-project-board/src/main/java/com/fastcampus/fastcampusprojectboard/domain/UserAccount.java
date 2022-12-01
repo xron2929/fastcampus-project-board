@@ -28,6 +28,7 @@ public class UserAccount {
     @Setter
     @Column(nullable = false,length = 50,name = "userId") private String userId;
     @Column(nullable = false) private String userPassword;
+    // passowrd가 db에 예약어로 있어서 이렇게 하신듯
 
     @Column(length = 100) private String email;
     @Column(length = 100) private String nickname;
