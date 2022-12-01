@@ -9,8 +9,13 @@ import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Import;
+<<<<<<< HEAD
+import org.springframework.context.event.EventListener;
+=======
+>>>>>>> main
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +34,7 @@ public class FastCampusProjectBoardApplication {
 
 	ArticleRepository articleRepository;
 	ArticleCommentRepository articleCommentRepository;
+	// @EventListener(ApplicationReadyEvent.class)
 	@PostConstruct
 	void sdf() {
 		int maxLongArticleId = 100;
