@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,19 +22,18 @@ import java.util.Objects;
         @Index(columnList = "createdAt")
 })
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class UserAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Setter
-    @Column(nullable = false,length = 50,name = "userId") private String userId;
+    @Column(length = 50, nullable = false)
+    private String userId;
     @Column(nullable = false) private String userPassword;
-    // passowrd가 db에 예약어로 있어서 이렇게 하신듯
+    // password가 db에 예약어로 있어서 이렇게 하신듯
 
     @Column(length = 100) private String email;
     @Column(length = 100) private String nickname;
     @Setter private  String memo;
-    @Setter @Column(nullable = false,length = 500) private String content;     // 본문
+
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) // 타임 포매팅 쉽게 하려고 함
     @CreatedDate
     @Column(nullable = false)
@@ -52,23 +52,44 @@ public class UserAccount {
     private String modifiedBy;  // 수정자
     protected UserAccount() {}
 
-    private UserAccount(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
+    public UserAccount(String userId, String userPassword, String email, String nickname, String memo, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.email = email;
         this.nickname = nickname;
         this.memo = memo;
+        this.createdAt = createdAt;
         this.createdBy = createdBy;
-        this.modifiedBy = createdBy;
+        this.modifiedAt = modifiedAt;
+        this.modifiedBy = modifiedBy;
+    }
+
+    private UserAccount(String userId, String userPassword, String email, String nickname, String memo, LocalDateTime createdAt) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.email = email;
+        this.nickname = nickname;
+        this.memo = memo;
+        this.createdAt = createdAt;
+        this.modifiedAt = createdAt;
+    }
+
+    private UserAccount(String userId, String userPassword, String email, String nickname, String memo) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.email = email;
+        this.nickname = nickname;
+        this.memo = memo;
+    }
+
+    public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo,LocalDateTime createdAt) {
+        return new UserAccount(userId, userPassword, email, nickname, memo,createdAt);
     }
 
     public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo) {
-        return UserAccount.of(userId, userPassword, email, nickname, memo, null);
+        return new UserAccount(userId, userPassword, email, nickname, memo);
     }
 
-    public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
-        return new UserAccount(userId, userPassword, email, nickname, memo, createdBy);
-    }
 
     @Override
     public boolean equals(Object o) {
