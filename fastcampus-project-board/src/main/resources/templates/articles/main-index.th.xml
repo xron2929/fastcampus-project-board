@@ -15,6 +15,11 @@
             page=${articles.number},
             sort='hashtag' + (*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc' : '') : '')
         )}"/>
+<<<<<<< HEAD
+=======
+                <!-- 객체 자체는 Page<article>을반환하는데 여기서 article 개체에서 User 계정을 불러오고 거기서 id를 가져와야해서이런듯  -->
+                <!-- sort 자체는 생략하면 ASC가 default라 생략하신듯  -->
+>>>>>>> #22-잘못된도메인바로잡기
                 <attr sel="th.user-id/a" th:text="'작성자'" th:href="@{/articles(
             page=${articles.number},
             sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : '')
