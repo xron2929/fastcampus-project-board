@@ -36,7 +36,9 @@ public class ArticleController {
             ModelMap map) {
         Page<ArticleResponse> articles = articleService.searchArticles(searchType, searchValue, pageable).map(ArticleResponse::from);
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articles.getTotalPages());
-        articles.getSort().getOrderFor("title");
+        System.out.println("sort = "+articles.getSort());
+        System.out.println("sort createdAt = "+articles.getSort().getOrderFor("createdAt"));
+
         // 아마 JPa 튜닝을 여기서 getContent() 랑 레이지 로딩을 할 수 있는데 나중에 해야할듯
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);

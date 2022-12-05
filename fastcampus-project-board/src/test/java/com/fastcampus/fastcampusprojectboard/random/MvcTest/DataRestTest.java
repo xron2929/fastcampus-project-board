@@ -147,10 +147,6 @@ public class DataRestTest {
     }
     // 대충 이렇게 다 가져오려면 힘들긴한데 가져는 올 수 있다는 점
 
-    @Test
-    void sortTest() {
-        System.out.println(pages.getSort().getOrderFor("title"));
 
-    }
 
 }
