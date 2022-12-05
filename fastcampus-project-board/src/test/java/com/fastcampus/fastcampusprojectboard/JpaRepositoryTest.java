@@ -2,9 +2,12 @@ package com.fastcampus.fastcampusprojectboard;
 
 import com.fastcampus.fastcampusprojectboard.config.JpaConfig;
 import com.fastcampus.fastcampusprojectboard.domain.Article;
+import com.fastcampus.fastcampusprojectboard.domain.UserAccount;
+import com.fastcampus.fastcampusprojectboard.dto.ArticleDto;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleCommentRepository;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
 import com.fastcampus.fastcampusprojectboard.random.RandomString;
+import com.fastcampus.fastcampusprojectboard.repository.UserAccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +19,8 @@ import org.springframework.context.annotation.Import;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.atomicIntegerFieldUpdater;
+
 // @ActiveProfiles("testdb")
 // @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 // 이거 2개랑 yml에있는 h2 base 이용해서 테스트 환경에 따라 mysql, h2 바꾸면서 할 수도 있지만,
@@ -27,22 +32,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 // @Transactional @SPringBootTest
 // @Rollback 이용해서 해도 되는데, 뭐 자동롤백할꺼면 이렇게 해도 된다는 점
 public class JpaRepositoryTest {
-    public JpaRepositoryTest(@Autowired ArticleRepository articleRepository,@Autowired ArticleCommentRepository articleCommentRepository) {
+    public JpaRepositoryTest(@Autowired ArticleRepository articleRepository,@Autowired ArticleCommentRepository articleCommentRepository
+    ,@Autowired UserAccountRepository userAccountRepository) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
-    private ArticleRepository articleRepository;
-    private ArticleCommentRepository articleCommentRepository;
-
+    private final ArticleRepository articleRepository;
+    private final ArticleCommentRepository articleCommentRepository;
+    private final UserAccountRepository userAccountRepository;
+    private ArticleDto articleDto;
     @BeforeEach
     void sdf() {
         RandomString randomString = new RandomString();
         String title=randomString.randomSizeString(20);
         String content=randomString.randomSizeString(20);
         String hashtag=randomString.randomSizeString(20);
-        Article article = Article.of(title,content,hashtag);
-        articleRepository.save(article);
+
     }
     @DisplayName("update 테스트")
     @Test
@@ -70,8 +77,8 @@ public class JpaRepositoryTest {
             System.out.println("content = " + content);
             String hashtag=randomString.randomSizeString(20);
             System.out.println("hashtag = " + hashtag);
-            Article article = Article.of(title,content,hashtag);
-            articleRepository.save(article);
+//             Article article = Article.of(title,content,hashtag);
+            // articleRepository.save(article);
         }
         List<Article> articles = articleRepository.findAll();
 
@@ -91,8 +98,8 @@ public class JpaRepositoryTest {
             System.out.println("content = " + content);
             String hashtag=randomString.randomSizeString(20);
             System.out.println("hashtag = " + hashtag);
-            Article article = Article.of(title,content,hashtag);
-            articleRepository.save(article);
+            // Article article = Article.of(title,content,hashtag);
+            // articleRepository.save(article);
         }
 
 
@@ -109,7 +116,7 @@ public class JpaRepositoryTest {
         Article article = articleRepository.findById(1L).orElseThrow();
         long previousArticleCount = articleRepository.count();
         long previousArticleCommentCount = articleCommentRepository.count();
-        long deletedCommentsSize = article.getArticleCommentsets().size();
+        long deletedCommentsSize = article.getArticleComments().size();
         //when
         articleRepository.delete(article);
         //then

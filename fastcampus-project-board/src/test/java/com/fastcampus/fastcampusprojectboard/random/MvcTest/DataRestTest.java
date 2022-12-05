@@ -2,9 +2,11 @@ package com.fastcampus.fastcampusprojectboard.random.MvcTest;
 
 import com.fastcampus.fastcampusprojectboard.domain.Article;
 import com.fastcampus.fastcampusprojectboard.domain.ArticleComment;
+import com.fastcampus.fastcampusprojectboard.domain.UserAccount;
 import com.fastcampus.fastcampusprojectboard.random.RandomString;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleCommentRepository;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
+import com.fastcampus.fastcampusprojectboard.repository.UserAccountRepository;
 import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.annotation.PostConstruct;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -51,16 +54,32 @@ public class DataRestTest {
     ArticleRepository articleRepository;
     @Autowired
     ArticleCommentRepository articleCommentRepository;
+    @Autowired
+    UserAccountRepository userAccountRepository;
     @PostConstruct
     void preInput() {
         int maxLongArticleId = 100;
         Random random = new Random();
         RandomString randomString = new RandomString();
         for(int i = 0; i < maxLongArticleId; i++) {
+            String userId = randomString.randomSizeString(20);
+            String userPassword = randomString.randomSizeString(20);
+            String  email = randomString.randomSizeString(20);
+            String nickname = randomString.randomSizeString(20);
+            String memo = randomString.randomSizeString(20);
+            String createdAt = randomString.randomSizeString(20);
+            UserAccount userAccount = UserAccount.of(userId,userPassword, email, nickname, memo);
+            userAccountRepository.save(userAccount);
+            LocalDateTime createdAt1 = userAccountRepository.findAll().get(0).getCreatedAt();
+            System.out.println("createdAt1 = " + createdAt1);
+        }
+
+        for(int i = 0; i < maxLongArticleId; i++) {
             String title = randomString.randomSizeString(20);
             String content = randomString.randomSizeString(20);
             String hashtag = randomString.randomSizeString(20);
-            Article article = Article.of(title, content, hashtag);
+            UserAccount userAccount = userAccountRepository.findAll().get(userAccountRepository.findAll().size() - 1);
+            Article article = Article.of(userAccount,title, content, hashtag);
             articleRepository.save(article);
 
         }
@@ -69,7 +88,8 @@ public class DataRestTest {
             System.out.println("articleId = " + articleId);
             Article findArticle = articleRepository.findById(articleId).orElseThrow();
             String content2 = randomString.randomSizeString(20);
-            ArticleComment articleComment = ArticleComment.of(findArticle,content2);
+            UserAccount userAccount = userAccountRepository.findAll().get(userAccountRepository.findAll().size() - 1);
+             ArticleComment articleComment = ArticleComment.of(findArticle,content2,userAccount);
             articleCommentRepository.save(articleComment);
         }
     }
@@ -126,5 +146,7 @@ public class DataRestTest {
         Assertions.assertThat(title3).isEqualTo(title);
     }
     // 대충 이렇게 다 가져오려면 힘들긴한데 가져는 올 수 있다는 점
+
+
 
 }
