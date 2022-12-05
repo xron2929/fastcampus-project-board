@@ -1,8 +1,6 @@
 package com.fastcampus.fastcampusprojectboard.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -25,6 +23,7 @@ import java.util.Objects;
 },name = "aritcle_comment"
 )
 @Entity
+@Getter
 public class ArticleComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +31,12 @@ public class ArticleComment {
 
     @Setter @ManyToOne(optional = false)
     private Article article;    // 제목
+
+    @Setter
+    @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
+    private UserAccount userAccount; // 유저 정보 (ID)
+
     @Setter @Column(nullable = false,length = 500) private String content;     // 본문
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) // 타임 포매팅 쉽게 하려고 함
     @CreatedDate
@@ -50,13 +55,14 @@ public class ArticleComment {
     @LastModifiedBy
     @Column(nullable = false)
     private String modifiedBy;  // 수정자
-    public ArticleComment(Article article,String content) {
+    public ArticleComment(Article article,String content,UserAccount userAccount) {
         this.article = article;
         this.content = content;
+        this.userAccount = userAccount;
     }
 
-    public static ArticleComment of(Article article,String content) {
-        return new ArticleComment(article,content);
+    public static ArticleComment of(Article article,String content,UserAccount userAccount) {
+        return new ArticleComment(article,content,userAccount);
     }
 
 
