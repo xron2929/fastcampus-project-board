@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +36,8 @@ class PaginationServiceTest {
         List<Integer> actual = sut.getPaginationBarNumbers(currentPageNumber,totalPages);
         System.out.println("actual = " + actual);
         //then
+        System.out.println(IntStream.range(currentPageNumber,totalPages).boxed().toList());
+        // current 0 total 13 이니까 0~12까지 13개
         assertThat(actual).isEqualTo(expected);
         // 당연히 actual는 null을 리턴하게했으니 false일듯
 
