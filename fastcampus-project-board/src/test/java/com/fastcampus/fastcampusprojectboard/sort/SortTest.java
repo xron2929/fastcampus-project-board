@@ -1,5 +1,15 @@
 package com.fastcampus.fastcampusprojectboard.sort;
 
+<<<<<<< HEAD
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+@DataJpaTest
+public class SortTest {
+    @Test
+    void sortTest() {
+        System.out.println(pages.getSort().getOrderFor("title"));
+=======
 import com.fastcampus.fastcampusprojectboard.dto.response.ArticleResponse;
 import com.fastcampus.fastcampusprojectboard.service.ArticleService;
 import org.junit.jupiter.api.Test;
@@ -18,6 +28,7 @@ public class SortTest {
 
     @Test
     void sortTest() {
+>>>>>>> #22-잘못된도메인바로잡기
 
     }
 }

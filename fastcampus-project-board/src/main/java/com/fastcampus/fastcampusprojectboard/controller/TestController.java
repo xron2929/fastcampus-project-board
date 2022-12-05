@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+package com.fastcampus.fastcampusprojectboard.controller;public class TestController {
+=======
 package com.fastcampus.fastcampusprojectboard.controller;
 
 import com.fastcampus.fastcampusprojectboard.domain.type.SearchType;
@@ -62,4 +65,5 @@ public class TestController {
         // pageable의 sort랑 direction을 수정하는듯
         return "ok";
     }
+>>>>>>> #22-잘못된도메인바로잡기
 }

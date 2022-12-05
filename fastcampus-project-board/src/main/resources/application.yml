@@ -20,7 +20,7 @@ spring:
     # identity 전략이라서 osiv 꺼두신듯
     defer-datasource-initialization: true
     # 이거는 하이버네이트 실행 전에 Sql 실행할지에 대한 여부라서 일단 이게 true가 되어야할듯
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate.format_sql: true
@@ -64,7 +64,7 @@ spring:
   datasource:
     url: ${JAWSDB_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa.hibernate.ddl-auto: create
+  jpa.hibernate.ddl-auto: create-drop
   sql.init.mode: always
 
 ---
