@@ -1,7 +1,9 @@
 package com.fastcampus.fastcampusprojectboard.sort;
 
 <<<<<<< HEAD
+import com.fastcampus.fastcampusprojectboard.service.ArticleService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
@@ -24,11 +26,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DataJpaTest
 public class SortTest {
-    @Autowired ArticleService articleService;
+    @Autowired
+    ArticleService articleService;
 
     @Test
     void sortTest() {
->>>>>>> #22-잘못된도메인바로잡기
 
     }
 }

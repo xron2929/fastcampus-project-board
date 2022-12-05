@@ -29,11 +29,7 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyWord, Pageable pageable) {
         if (searchKeyWord == null || searchKeyWord.isBlank()) {
-<<<<<<< HEAD
-=======
             System.out.println("pageable = " + pageable);
-
->>>>>>> #22-잘못된도메인바로잡기
             return articleRepository.findAll(pageable).map(ArticleDto::from);
 
         }
@@ -50,10 +46,7 @@ public class ArticleService {
         // 무조건 이넘이 베스트이므로, 장기적으로 생각했을 떄
         // searchTitle() 같이 그냥 스트링으로 해결되는 타입이면,네이밍
         // 그게 아니라면 이넘이 무조건 베스트라는 점
-<<<<<<< HEAD
-=======
 
->>>>>>> #22-잘못된도메인바로잡기
         return switch (searchType) {
             case TITLE -> articleRepository.findByTitle(searchKeyWord, pageable).map(ArticleDto::from);
             case NICKNAME -> articleRepository.findByUserAccount_UserIdContaining(searchKeyWord, pageable).map(ArticleDto::from);
