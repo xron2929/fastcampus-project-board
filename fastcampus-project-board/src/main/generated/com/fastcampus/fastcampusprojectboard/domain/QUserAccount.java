@@ -19,12 +19,22 @@ public class QUserAccount extends EntityPathBase<UserAccount> {
 
     public static final QUserAccount userAccount = new QUserAccount("userAccount");
 
+<<<<<<< HEAD
+=======
+    public final StringPath content = createString("content");
+
+>>>>>>> #21-페이지네이션기능구현
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
     public final StringPath createdBy = createString("createdBy");
 
     public final StringPath email = createString("email");
 
+<<<<<<< HEAD
+=======
+    public final NumberPath<Long> id = createNumber("id", Long.class);
+
+>>>>>>> #21-페이지네이션기능구현
     public final StringPath memo = createString("memo");
 
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = createDateTime("modifiedAt", java.time.LocalDateTime.class);
