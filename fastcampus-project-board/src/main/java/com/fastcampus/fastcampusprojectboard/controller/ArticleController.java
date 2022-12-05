@@ -48,7 +48,7 @@ public class ArticleController {
         map.addAttribute("articleComments", article.articleCommentResponses());
 
 
-        return "articles/main-index";
+        return "articles/detail";
     }
 
 
