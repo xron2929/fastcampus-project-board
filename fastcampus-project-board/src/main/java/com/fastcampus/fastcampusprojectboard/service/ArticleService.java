@@ -31,7 +31,6 @@ public class ArticleService {
         if (searchKeyWord == null || searchKeyWord.isBlank()) {
             System.out.println("pageable = " + pageable);
             return articleRepository.findAll(pageable).map(ArticleDto::from);
-
         }
         // 그룹에 따른 클린코드화 방법은 2가지
         // 1. 부모타입을 오버로딩 하는 거 이 경우는 부모와 자식이라는 문제가 생김(하나의 그룹이
