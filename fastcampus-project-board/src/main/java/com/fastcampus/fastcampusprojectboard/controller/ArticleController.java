@@ -41,12 +41,16 @@ public class ArticleController {
         System.out.println("pageable = " + pageable);
         Page<ArticleResponse> articles = articleService.searchArticles(searchType, searchValue, pageable).map(ArticleResponse::from);
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articles.getTotalPages());
-        System.out.println("sort = "+articles.getSort());
-        System.out.println("sort createdAt = "+articles.getSort().getOrderFor("createdAt"));
 
+        System.out.println("searchType.getDescription() = " + searchType);
+        System.out.println("searchValue = " + searchValue);
+        System.out.println("sort = "+articles.getSort());
+        // System.out.println("sort createdAt = "+articles.getSort().getOrderFor("createdAt"));
         // 아마 JPa 튜닝을 여기서 getContent() 랑 레이지 로딩을 할 수 있는데 나중에 해야할듯
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
+        map.addAttribute("searchTypes", SearchType.values());
+
         //System.out.println("sort createdAt DirectionName= "+articles.getSort().getOrderFor("createdAt").getDirection().name());
         System.out.println("sort title = "+articles.getSort().getOrderFor("title"));
         // 아마 JPa 튜닝을 여기서 getContent() 랑 레이지 로딩을 할 수 있는데 나중에 해야할듯

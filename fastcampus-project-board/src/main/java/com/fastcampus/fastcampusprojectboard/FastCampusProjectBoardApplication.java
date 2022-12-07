@@ -41,7 +41,7 @@ public class FastCampusProjectBoardApplication {
 	// @EventListener(ApplicationReadyEvent.class)
 	@PostConstruct
 	void sdf() {
-		int maxLongArticleId = 50;
+		int maxLongArticleId = 30;
 		Random random = new Random();
 		RandomString randomString = new RandomString();
 		System.out.println("userAccountRepository.count() = " + userAccountRepository.count());
