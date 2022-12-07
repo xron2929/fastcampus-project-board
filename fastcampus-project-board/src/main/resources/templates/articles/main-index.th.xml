@@ -10,7 +10,10 @@
                   th:value="${searchType.name}"
                   th:text="${searchType.description}"
                   th:selected="${param.searchType != null && (param.searchType.toString == searchType.name)}"
+
             />
+            <!-- th:selected="${param.searchType != null && (param.searchType.toString == searchType.name)}" 빈으로 주입한 enum 타입에
+            있는 거랑 설치 타입류들 중 하나랑 같으면 그 거 택하는듯 -->
         </attr>
         <attr sel="#search-value" th:value="${param.searchValue}" />
 
