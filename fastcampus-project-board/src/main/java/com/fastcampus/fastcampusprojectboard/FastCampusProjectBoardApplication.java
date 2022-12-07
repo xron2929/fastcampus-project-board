@@ -62,7 +62,7 @@ public class FastCampusProjectBoardApplication {
 		for(int i = 0; i < maxLongArticleId; i++) {
 			String title = randomString.randomSizeString(20);
 			String content = randomString.randomSizeString(20);
-			String hashtag = randomString.randomSizeString(20);
+			String hashtag = "#"+randomString.randomSizeString(19);
 			UserAccount userAccount = userAccountRepository.findAll().get((int)userAccountRepository.count() - 1);
 			Article article = Article.of(userAccount,title, content, hashtag);
 			articleRepository.save(article);
