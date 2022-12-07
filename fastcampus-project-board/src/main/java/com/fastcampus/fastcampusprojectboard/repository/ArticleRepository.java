@@ -6,12 +6,16 @@ import com.fastcampus.fastcampusprojectboard.domain.QArticleComment;
 import com.querydsl.core.types.dsl.DateExpression;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @RepositoryRestResource
 @Repository
@@ -51,4 +55,12 @@ public interface ArticleRepository
         // 만약 http://localhost:8080/api/articles?modifiedBy=x 이러면 필터링 조차도 안됨 이유는
         // bindings.excludeUnlistedProperties(true); 여기서 제거했기 때문에 그냥 20개가 뜸
     }
+
+    Page<Article> findByTitleContaining(String title, Pageable pageable);
+    Page<Article> findById(String id, Pageable pageable);
+    Page<Article> findByContentContaining(String content, Pageable pageable);
+    Page<Article> findByUserAccount_UserIdContaining(String nickname, Pageable pageable);
+    Page<Article> findByHashtag(String hashtag, Pageable pageable);
+
+    Page<Article> findByTitle(String searchKeyword, Pageable pageable);
 }

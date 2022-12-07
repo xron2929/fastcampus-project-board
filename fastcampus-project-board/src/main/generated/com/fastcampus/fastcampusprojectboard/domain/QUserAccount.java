@@ -19,15 +19,11 @@ public class QUserAccount extends EntityPathBase<UserAccount> {
 
     public static final QUserAccount userAccount = new QUserAccount("userAccount");
 
-    public final StringPath content = createString("content");
-
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
     public final StringPath createdBy = createString("createdBy");
 
     public final StringPath email = createString("email");
-
-    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath memo = createString("memo");
 

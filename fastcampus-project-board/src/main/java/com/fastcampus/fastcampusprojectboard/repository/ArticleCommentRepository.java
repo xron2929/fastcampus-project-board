@@ -12,6 +12,9 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Version;
+
+
 @RepositoryRestResource
 @Repository
 public interface ArticleCommentRepository

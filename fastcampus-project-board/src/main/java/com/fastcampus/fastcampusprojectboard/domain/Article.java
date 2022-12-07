@@ -37,7 +37,7 @@ public class Article {
     // Identity 전략은 쓰기지연이 없이 persist하면 바로 불러와서
     // 벌크 연산이 필요없을듯
     // mysql, postgre는 시퀀스를 지원안해줘서 이렇게 해야되는듯
-    @Column(name = "user_id")
+    @Column(name = "article_id")
     private Long id;
     @Setter @Column(nullable = false) private String title;   // 제목
     @Setter @Column(nullable = false) private String content; // 댓글
@@ -46,7 +46,15 @@ public class Article {
     @ToString.Exclude // 무한 참조를 막으려고 Exclude 설정함
     // article에 Comment가 없어서 그런듯
     @OneToMany(mappedBy = "article")
-    private final Set<ArticleComment> articleCommentsets = new LinkedHashSet<ArticleComment>();
+
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<ArticleComment>();
+
+    @Setter
+    @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
+    private UserAccount userAccount; // 유저 정보 (ID)
+
+
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;    // 생성일자
     @CreatedBy @Column(nullable = false) private String createdBy;   // 생성자
@@ -58,10 +66,11 @@ public class Article {
     protected Article(){}
     // @Transient private static Article article = new Article();
     // @Transient는 컬럼 등록 막아줌
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title,content,hashtag);
+    public static Article of(UserAccount userAccount,String title, String content, String hashtag) {
+        return new Article(userAccount,title,content,hashtag);
     }
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount,String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
