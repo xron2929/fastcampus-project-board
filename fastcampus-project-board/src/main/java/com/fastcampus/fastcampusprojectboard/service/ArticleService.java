@@ -32,6 +32,9 @@ public class ArticleService {
             System.out.println("pageable = " + pageable);
             return articleRepository.findAll(pageable).map(ArticleDto::from);
         }
+        if(searchType.equals(SearchType.HASHTAG)) {
+            System.out.println(" 에러발생 ");
+        }
         // 그룹에 따른 클린코드화 방법은 2가지
         // 1. 부모타입을 오버로딩 하는 거 이 경우는 부모와 자식이라는 문제가 생김(하나의 그룹이
         // 부모와 자식이라 볼 수 있지만 상황에 따라서 다른 경우의 부모와 자식인 경우)
@@ -97,5 +100,17 @@ public class ArticleService {
 
     public void deleteArticle(long articleId) {
         articleRepository.deleteById(articleId);
+    }
+
+    public Page<ArticleDto> searchArticlesViaHashtag(String hashtag, Pageable pageable) {
+        if (hashtag == null || hashtag.isBlank()) {
+            System.out.println("pageable = " + pageable);
+            return articleRepository.findAll(pageable).map(ArticleDto::from);
+        }
+        return articleRepository.findByHashtag(hashtag,pageable).map(ArticleDto::from);
+    }
+
+    public List<String> getHashtags() {
+        return articleRepository.findAllDistinctHashtags();
     }
 }
