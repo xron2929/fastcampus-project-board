@@ -41,7 +41,7 @@ public class FastCampusProjectBoardApplication {
 	// @EventListener(ApplicationReadyEvent.class)
 	@PostConstruct
 	void sdf() {
-		int maxLongArticleId = 50;
+		int maxLongArticleId = 30;
 		Random random = new Random();
 		RandomString randomString = new RandomString();
 		System.out.println("userAccountRepository.count() = " + userAccountRepository.count());
@@ -62,7 +62,7 @@ public class FastCampusProjectBoardApplication {
 		for(int i = 0; i < maxLongArticleId; i++) {
 			String title = randomString.randomSizeString(20);
 			String content = randomString.randomSizeString(20);
-			String hashtag = randomString.randomSizeString(20);
+			String hashtag = "#"+randomString.randomSizeString(19);
 			UserAccount userAccount = userAccountRepository.findAll().get((int)userAccountRepository.count() - 1);
 			Article article = Article.of(userAccount,title, content, hashtag);
 			articleRepository.save(article);

@@ -3,6 +3,7 @@ package com.fastcampus.fastcampusprojectboard.repository;
 import com.fastcampus.fastcampusprojectboard.domain.Article;
 import com.fastcampus.fastcampusprojectboard.domain.QArticle;
 import com.fastcampus.fastcampusprojectboard.domain.QArticleComment;
+import com.fastcampus.fastcampusprojectboard.repository.querydsl.ArticleRepositoryCustom;
 import com.querydsl.core.types.dsl.DateExpression;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
@@ -18,11 +19,13 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @RepositoryRestResource
-@Repository
+// @Repository
 public interface ArticleRepository
         extends JpaRepository<Article,Long>
+        ,ArticleRepositoryCustom
         ,QuerydslPredicateExecutor<Article>
         ,QuerydslBinderCustomizer<QArticle>
+
     // 여기 위에 하나는 Article 하나는 QArticle인데 predi는  기본 정보
         // Blinder는 Qclass 정보라는 걸 꼭 맞춰야 됨
     // 갖다 대보면 확인 할수있는데 Prdicate는 T 일반 정보가 들어가고
